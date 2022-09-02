@@ -29,7 +29,6 @@ const HomePage = ({Session}:HomePageProps) => {
         staleTime:Infinity,
         enabled:!!Session
     })
-    console.log(Servers)
     return (
         <div className='grid grid-cols-[250px_500px] p-5'>
             <div className='flex flex-col h-full border border-primary rounded-lg items-center'>

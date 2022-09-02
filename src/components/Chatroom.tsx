@@ -12,7 +12,9 @@ const Chatroom = ({uid, sid}:ChatroomProps) => {
     const [MessageAlert, setMessageAlert] = useState('');
     const [MessageAlertClass, setMessageAlertClass] = useState(['','']);
     const MessageRef = useRef<HTMLInputElement>(null);
-    const Messages = trpc.useQuery(['message.findAllMessages',{sid:sid}]);
+    const Messages = trpc.useQuery(['message.findAllMessages',{sid:sid}],{
+        refetchInterval: 1000
+    });
     const CriarMessage = trpc.useMutation(['message.sendMessage'],{onSuccess: () => ctx.invalidateQueries(['message.findAllMessages'])});
     const handleSubmit = {
         CriarMessage: (e:React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
