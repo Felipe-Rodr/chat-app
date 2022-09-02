@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id String @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  username String @unique
+  password String
+  profile Profile?
+  ownsServer Server?
+  connectedToServers Server[] @relation("UsersConnectedToServers")
+  messagesSent Message[]
+  isFriendOf User[] @relation("UserFriends")
+  isFriendsWith User[] @relation("UserFriends")
+
+}
+
+model Profile {
+  image String @default("/vercel.svg")
+  bio String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  belongsToUser User @relation(fields: [belongsToUserId], references: [id])
+  belongsToUserId String @id @unique
+
+  @@index([belongsToUserId])
+}
+
+model Server {
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  belongsToUser User @relation(fields: [belongsToUserId], references: [id])
+  belongsToUserId String @id @unique
+  connectedUsers User[] @relation("UsersConnectedToServers")
+  serverMessages Message[]
+
+  @@index([belongsToUserId])
+}
+
+model Message {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  content String
+  belongsToServer Server @relation(fields: [belongsToServerId], references: [belongsToUserId])
+  belongsToServerId String
+  sentFromUser User @relation(fields: [sentFromUserId], references: [id])
+  sentFromUserId String 
+
+  @@index([belongsToServerId, sentFromUserId])
+}
