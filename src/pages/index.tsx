@@ -25,21 +25,6 @@ export const getServerSideProps:GetServerSideProps = async ({req,res}) => {
     res:res
   });
   if(Session){
-    setCookie(
-      'sessionJustChatting',
-      encodeURIComponent(Session),
-      {
-        req: req,
-        res: res,
-        maxAge: 60*10*6,
-        sameSite: 'none',
-        secure: true,
-      }
-    );
-    Session = getCookie('sessionJustChatting',{
-      req:req,
-      res:res
-    })
     return {
       props: {
         Session: Session

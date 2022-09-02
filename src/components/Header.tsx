@@ -14,7 +14,9 @@ const Header = ({Session, Page}:HeaderProps) => {
         DesconectarUsuario: (e:React.MouseEvent<HTMLButtonElement>) => {
             DesconectarUsuario.mutate(undefined,{
                 onSuccess: () => {
-                    window.location.reload();
+                    setTimeout(() => {
+                        window.location.reload();
+                    },2000)
                 }
             })
         }
