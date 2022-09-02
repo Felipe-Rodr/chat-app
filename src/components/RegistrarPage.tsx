@@ -43,7 +43,9 @@ const RegistrarPage = ({}:RegistrarPageProps) => {
                         setUsername('');
                         setPassword('');
                         setConfirmarPassword('');
-                        window.location.reload();
+                        setTimeout(() => {
+                            window.location.reload();
+                        },2000)
                     }
                 })
             } else {
