@@ -13,7 +13,11 @@ export const serverRouter = createRouter()
                     belongsToUserId: input.sid
                 },
                 include:{
-                    connectedUsers: true
+                    connectedUsers: {
+                        select:{
+                            username:true
+                        }
+                    }
                 }
             });
             if(!Server){

@@ -39,7 +39,7 @@ const LoginPage = ({}:LoginPageProps) => {
                 setLoginMessage(data);
                 setTimeout(() => {
                     window.location.reload();
-                },2000)
+                },1000)
             }
         })
     }

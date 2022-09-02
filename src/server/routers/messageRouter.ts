@@ -13,7 +13,11 @@ export const messageRouter = createRouter()
                     belongsToServerId: input.sid
                 },
                 include:{
-                    sentFromUser:true
+                    sentFromUser:{
+                        select:{
+                            username:true
+                        }
+                    }
                 }
             })
             if(!Messages){
