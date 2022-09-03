@@ -16,7 +16,7 @@ const Header = ({Session, Page}:HeaderProps) => {
                 onSuccess: () => {
                     setTimeout(() => {
                         window.location.reload();
-                    },1000)
+                    },1500)
                 }
             })
         }
